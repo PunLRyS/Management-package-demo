@@ -103,8 +103,8 @@ UC7 --> QuanLyKho
           {showUML && (
             <motion.div
               variants={animationVariants}
-              className="bg-gray-100 p-4 rounded-md shadow-md mt-4 flex justify-center overflow-hidden"
-              style={{ maxHeight: '80vh' }} // Giới hạn chiều cao của container
+              className="p-4 rounded-md shadow-md mt-4 flex justify-center overflow-hidden"
+              style={{ maxHeight: '80vh' }}
             >
               <img src={umlImageUrl} alt="UML Diagram" className="max-w-full h-auto" />
             </motion.div>
