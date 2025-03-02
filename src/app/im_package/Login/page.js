@@ -109,7 +109,7 @@ const LoginPage = () => {
               initial="hidden"
               animate="visible"
             >
-              <Image src={umlImageUrl} alt="UML Diagram" className="max-w-full h-auto" />
+              <Image src={umlImageUrl} width={500} height={300} alt="UML Diagram" className="max-w-full h-auto" />
             </motion.div>
             <motion.div
               className="w-1/2 flex flex-col justify-center items-center border border-gray-300 p-8 rounded-lg shadow-lg"
