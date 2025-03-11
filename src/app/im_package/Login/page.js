@@ -8,15 +8,13 @@ import plantumlEncoder from 'plantuml-encoder';
 
 const umlCode = `
 @startuml
-actor "Người dùng" as User
+actor "Nhân viên" as User
 actor "Quản lý" as Admin
 
 rectangle "Hệ thống đăng nhập" {
-    usecase "Đăng nhập bằng Google" as UC_Google
     usecase "Đăng nhập bằng Tên người dùng & Mật khẩu" as UC_UsernamePassword
 }
 
-User --> UC_Google
 User --> UC_UsernamePassword
 Admin --> UC_UsernamePassword
 
@@ -145,19 +143,6 @@ const LoginPage = () => {
                   <button type="submit" className="bg-blue-500 text-white font-bold py-2 px-4 rounded w-full mt-4">
                     Login
                   </button>
-                  <button
-                    type="button"
-                    onClick={handleGoogleLogin}
-                    className="bg-red-500 text-white font-bold py-2 px-4 rounded w-full mt-4"
-                  >
-                    Login with Google
-                  </button>
-                  <p className="text-center mt-4">
-                    Don&apos;t have an account?{' '}
-                    <button type="button" onClick={() => router.push('/im_package/Register')} className="text-blue-500 underline">
-                      Register
-                    </button>
-                  </p>
                 </form>
               ) : (
                 <form onSubmit={handleRegisterSubmit} style={{ display: 'flex', flexDirection: 'column', width: '300px' }}>

@@ -8,7 +8,6 @@ export default function Nav_bar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Kiểm tra trạng thái đăng nhập từ localStorage hoặc API
     const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
     setIsLoggedIn(loggedIn);
 
@@ -58,7 +57,7 @@ export default function Nav_bar() {
               <div className="relative">
                 <Link href="/Inventory">
                   <button className="hover:border-b-2 border-white px-2 py-2 font-semibold">
-                    Kho hàng
+                    Sơ đồ class
                   </button>
                 </Link>
               </div>
@@ -75,14 +74,6 @@ export default function Nav_bar() {
                 <Link href="/im_package/Login">
                   <button className="hover:border-b-2 border-white px-2 py-2 font-semibold">
                     Đăng nhập
-                  </button>
-                </Link>
-              </div>
-
-              <div className="relative">
-                <Link href="/im_package/Register">
-                  <button className="hover:border-b-2 border-white px-2 py-2 font-semibold">
-                    Đăng ký
                   </button>
                 </Link>
               </div>
