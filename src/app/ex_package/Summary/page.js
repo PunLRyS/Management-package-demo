@@ -17,39 +17,32 @@ export default function AddProductPage() {
 
   const umlCode = `
 @startuml
+top to bottom direction
 
-actor NhanVien
-actor DaiLyCungCap
-actor HeThongThanhToan
-actor QuanLyKho
+actor "Nhân viên" as NV
+actor "Hệ thống thanh toán" as HTTT
+actor "Nhà cung cấp" as NCC
 
-rectangle "He Thong Xuat Hang" {
-    usecase "Danh sach hang" as UC1
-    usecase "Xuat (button)" as UC2
-    usecase "Danh sach hang duoc xuat" as UC3
-    usecase "OK" as UC4
-    usecase "Chon dai ly cung cap" as UC5
-    usecase "OK" as UC6
-    usecase "Don xuat" as UC7
-}
+NV --> (Nhập hàng)
+NV --> (Hóa đơn)
 
-NhanVien --> UC1
-NhanVien --> UC2
-NhanVien --> UC3
-NhanVien --> UC4
-NhanVien --> UC5
-NhanVien --> UC6
-NhanVien --> UC7
+(Nhập hàng) --> (Thêm sản phẩm) : <<include>>
+(Thêm sản phẩm) --> (Danh sách sản phẩm) : <<include>>
+(Nhập hàng) --> (Danh sách nhà cung cấp) 
 
-UC1 <.. UC2 : <<include>>
-UC2 <.. UC3 : <<include>>
-UC4 <.. UC5 : <<include>>
-UC5 <.. UC6 : <<include>>
-UC6 <.. UC7 : <<include>>
 
-UC7 --> DaiLyCungCap
-UC7 --> HeThongThanhToan
-UC7 --> QuanLyKho
+(Danh sách nhà cung cấp) --> (Chọn nhà cung cấp) 
+(Danh sách nhà cung cấp) --> (Thêm nhà cung cấp)
+(Thêm nhà cung cấp)--> (Chọn nhà cung cấp)
+(Chọn nhà cung cấp) --> (Đơn nhập)
+(Đơn nhập) --> (Thanh toán) : <<include>>
+(Thanh toán) --> (Hóa đơn) :<<include>>
+(Hóa đơn) -->(Danh sách sản phẩm):<<include>>
+
+
+(Hóa đơn) --> (Báo cáo) : <<include>>
+HTTT --> (Hóa đơn)
+NCC --> (Hóa đơn)
 
 @enduml
   `;
@@ -101,7 +94,7 @@ UC7 --> QuanLyKho
             <motion.div
               variants={animationVariants}
               className="p-4 rounded-md shadow-md mt-4 flex justify-center"
-              style={{ maxHeight: '80vh'}}
+              style={{ maxHeight: '120vh'}}
             >
               <img src={umlImageUrl} alt="UML Diagram" className="max-w-full h-auto" />
             </motion.div>

@@ -5,17 +5,89 @@ import { useEffect, useState } from "react";
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Background from '/public/Baixar-fundo-abstrato-hexágono_-conceito-poligonal-de-tecnologia-gratuitamente.png';
+import plantumlEncoder from 'plantuml-encoder';
+
+const umlCode = `
+@startuml
+left to right direction
+
+class "Xuất hàng" {
+  - Mã phiếu: string
+  - Ngày xuất: date
+  - Khách hàng: string
+  - Danh sách sản phẩm: List
+  - Tổng tiền: double
+}
+
+class "Nhà cung cấp" {
+  - Tên: string
+  - Địa chỉ: string
+  - SDT: double
+}
+
+class "Đại lý" {
+  - Tên: string
+  - Địa chỉ: string
+  - SDT: double
+}
+
+class "Xuất hóa đơn" {
+  - Mã xuất: string
+  - Tổng tiền: double
+}
+
+class "Nhập hàng" {
+  - Mã nhập: string
+  - Mã hàng: string
+  - Ngày nhập: date
+  - Nhà cung cấp: string
+  - Danh sách sản phẩm: List
+  - Tổng tiền: double
+}
+
+class "Kho hàng" {
+  - Tên: string
+  - Mã hàng: string
+  - Số lượng: int
+  - Giá: double
+  - Tổng giá: double
+}
+
+class "Xuất hóa đơn (Nhập hàng)" {
+  - Mã nhập: string
+  - Tổng tiền: double
+}
+
+class "Hàng hóa" {
+  - Mã hàng: string
+  - Tên: string
+  - Loại hàng: string
+  - Số lượng: int
+  - Giá: double
+}
+
+class "Tồn kho" {
+  - Mã hàng: string
+  - Hạn sử dụng: date
+  - Danh sách sản phẩm: List
+  - Tổng tiền: double
+}
+
+"Xuất hàng" --> "Đại lý"
+"Xuất hàng" --> "Xuất hóa đơn"
+"Nhập hàng" --> "Nhà cung cấp"
+"Nhập hàng" --> "Kho hàng"
+"Nhập hàng" --> "Xuất hóa đơn (Nhập hàng)"
+"Kho hàng" --> "Hàng hóa"
+"Hàng hóa" --> "Tồn kho"
+
+@enduml
+`;
+
+const encodedUML = plantumlEncoder.encode(umlCode);
+const umlImageUrl = `http://www.plantuml.com/plantuml/svg/${encodedUML}`;
 
 export default function InventoryPage() {
-  const [backendProducts, setBackendProducts] = useState([
-    { id: 1, ma: 'HH001', ten: 'Sản phẩm 1', soLuong: 10, giaNhap: 50000 },
-    { id: 2, ma: 'HH002', ten: 'Sản phẩm 2', soLuong: 20, giaNhap: 75000 },
-  ]);
-
-  const totalValue = backendProducts.reduce((total, item) => {
-    const itemTotal = item.soLuong * item.giaNhap;
-    return total + (isNaN(itemTotal) ? 0 : itemTotal);
-  }, 0);
 
   const numberFormatter = new Intl.NumberFormat('vi-VN');
 
@@ -57,7 +129,7 @@ export default function InventoryPage() {
             animate="visible"
             variants={itemVariants}
           >
-            Danh sách hàng hóa
+            Sơ đồ class
           </motion.h1>
           <motion.div
             className="overflow-x-auto mt-4"
@@ -65,67 +137,14 @@ export default function InventoryPage() {
             animate="visible"
             variants={containerVariants}
           >
-            <motion.table
-              className="bg-white border border-blue-400 w-full"
+            <motion.img
+              src={umlImageUrl}
+              alt="UML Diagram"
+              className="max-w-full h-auto mb-4 items-center justify-center mx-auto"
+              initial="hidden"
+              animate="visible"
               variants={itemVariants}
-            >
-              <thead>
-                <tr className="bg-blue-200 text-blue-900">
-                  <th className="name-data border border-blue-400 p-2">Số thứ tự</th>
-                  <th className="name-data border border-blue-400 p-2">Mã hàng</th>
-                  <th className="name-data border border-blue-400 p-2">Tên hàng</th>
-                  <th className="name-data border border-blue-400 p-2">Số lượng</th>
-                  <th className="name-data border border-blue-400 p-2">Giá</th>
-                  <th className="name-data border border-blue-400 p-2">Tổng giá</th>
-                </tr>
-              </thead>
-              <motion.tbody
-                initial="hidden"
-                animate="visible"
-                variants={containerVariants}
-                transition={{ delay: 1.1 }}
-              >
-                {backendProducts.map((item, index) => {
-                  const totalAmount = item.soLuong * item.giaNhap;
-                  return (
-                    <motion.tr
-                      key={item.id}
-                      className="hover:bg-blue-100"
-                      variants={itemVariants}
-                    >
-                      <td className="data-inventory border border-blue-400 p-2 text-center">
-                        {index + 1}
-                      </td>
-                      <td className="data-inventory border border-blue-400 p-2 text-center">
-                        {item.ma}
-                      </td>
-                      <td className="data-inventory border border-blue-400 p-2 text-center">
-                        {item.ten}
-                      </td>
-                      <td className="data-inventory border border-blue-400 p-2 text-center">
-                        {item.soLuong}
-                      </td>
-                      <td className="data-inventory border border-blue-400 p-2 text-center">
-                        {numberFormatter.format(item.giaNhap)} VNĐ
-                      </td>
-                      <td className="data-inventory border border-blue-400 p-2 text-center">
-                        {numberFormatter.format(totalAmount)} VNĐ
-                      </td>
-                    </motion.tr>
-                  );
-                })}
-              </motion.tbody>
-              <tfoot>
-                <tr>
-                  <td colSpan="5" className="border border-blue-400 p-2 text-right font-bold">
-                    Tổng giá trị hàng hóa:
-                  </td>
-                  <td className="border border-blue-400 p-2 text-right">
-                    {numberFormatter.format(totalValue)} VNĐ
-                  </td>
-                </tr>
-              </tfoot>
-            </motion.table>
+            />
           </motion.div>
         </div>
       </div>

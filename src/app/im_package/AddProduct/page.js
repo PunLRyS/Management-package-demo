@@ -17,38 +17,33 @@ export default function AddProductPage() {
 
   const umlCode = `
 @startuml
-actor NhanVien
-actor NhaCungCap
-actor HeThongThanhToan
-actor QuanLyKho
+top to bottom direction
 
-rectangle "He Thong Nhap Hang" {
-    usecase "Nhap hang" as UC1
-    usecase "Danh sach san pham" as UC2
-    usecase "Them san pham" as UC3
-    usecase "Danh sach them" as UC4
-    usecase "OK" as UC5
-    usecase "Chon nha cung cap" as UC6
-    usecase "Don nhap" as UC7
-}
+actor "Nhân viên" as NV
+actor "Hệ thống thanh toán" as HTTT
+actor "Nhà cung cấp" as NCC
 
-NhanVien --> UC1
-NhanVien --> UC2
-NhanVien --> UC3
-NhanVien --> UC4
-NhanVien --> UC5
-NhanVien --> UC6
-NhanVien --> UC7
+NV --> (Nhập hàng)
+NV --> (Hóa đơn)
 
-UC1 <.. UC2 : <<include>>
-UC3 <.. UC4 : <<include>>
-UC5 <.. UC6 : <<include>>
-UC6 <.. UC7 : <<include>>
+(Nhập hàng) --> (Thêm sản phẩm) : <<include>>
+(Thêm sản phẩm) --> (Danh sách sản phẩm) : <<include>>
+(Nhập hàng) --> (Chọn nhà cung cấp) : <<include>>
 
-UC7 --> NhaCungCap
-UC7 --> HeThongThanhToan
-UC7 --> QuanLyKho
+
+(Chọn nhà cung cấp) --> (Đơn nhập) : <<include>>
+
+(Đơn nhập) --> (Thanh toán) : <<include>>
+(Thanh toán) --> (Hóa đơn) :<<include>>
+(Hóa đơn) -->(Danh sách sản phẩm):<<include>>
+
+
+(Hóa đơn) --> (Báo cáo) : <<include>>
+HTTT --> (Hóa đơn)
+NCC --> (Hóa đơn)
+
 @enduml
+
   `;
 
   const encodedUML = plantumlEncoder.encode(umlCode);
@@ -104,7 +99,7 @@ UC7 --> QuanLyKho
             <motion.div
               variants={animationVariants}
               className="p-4 rounded-md shadow-md mt-4 flex justify-center overflow-hidden"
-              style={{ maxHeight: '80vh' }}
+              style={{ maxHeight: '100vh' }}
             >
               <img src={umlImageUrl} alt="UML Diagram" className="max-w-full h-auto" />
             </motion.div>
