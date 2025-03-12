@@ -23,10 +23,9 @@ start
 
 :Nhập hàng từ đại lý;
 :Nhập thông tin hàng hóa;
-:Nhập Tên hàng, Mã hàng hóa, Số lượng, Đơn giá;
+:Nhập Tên hàng, Mã hàng hóa, Số lượng, Đơn giá, Ngày nhập hàng;
 :Tính Tổng giá;
 :Nhập thông tin nhà cung cấp  (Tên nhà cung cấp, Mã nhà cung cấp, Địa chỉ, SĐT);
-:Nhập Ngày nhập hàng;
 :Kiểm tra thông tin hàng hóa;
 if (Hàng hóa hợp lệ?) then (Có)
     :Cập nhật kho hàng;
@@ -36,10 +35,10 @@ else (Không)
 endif
 
 :Đặt hàng xuất;
-:Chọn đại lý để xuất hàng;
-:nhập thông tin đại lý xuất hàng(Tên đại lý, Mã đại lý, Địa chỉ, SĐT);
 :Chọn hàng xuất trong danh sách;
 :Nhập Tên hàng, Mã hàng hóa, Số lượng, Đơn giá;
+:Chọn đại lý để xuất hàng;
+:nhập thông tin đại lý xuất hàng(Tên đại lý, Mã đại lý, Địa chỉ, SĐT);
 :Kiểm tra tồn kho;
 if (Số lượng đủ?) then (Có)
     :Tạo đơn xuất;
