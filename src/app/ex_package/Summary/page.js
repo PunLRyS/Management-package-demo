@@ -23,28 +23,24 @@ actor "Nhân viên" as NV
 actor "Hệ thống thanh toán" as HTTT
 actor "Nhà cung cấp" as NCC
 
-NV --> (Nhập hàng)
+NV --> (Xuất hàng)
 NV --> (Hóa đơn)
 
-(Nhập hàng) --> (Thêm sản phẩm) : <<include>>
-(Thêm sản phẩm) --> (Danh sách sản phẩm) : <<include>>
-(Nhập hàng) --> (Danh sách nhà cung cấp) 
+(Xuất hàng) --> (Chọn đại lý) : <<include>>
+(Xuất hàng) --> (Thêm đại lý) 
+(Thêm đại lý) --> (Danh sách đại lý) :<<include>>
+(Chọn đại lý) --> (Đơn xuất) : <<include>>
+(Đơn xuất) --> (Thanh toán) : <<include>>
 
-
-(Danh sách nhà cung cấp) --> (Chọn nhà cung cấp) 
-(Danh sách nhà cung cấp) --> (Thêm nhà cung cấp)
-(Thêm nhà cung cấp)--> (Chọn nhà cung cấp)
-(Chọn nhà cung cấp) --> (Đơn nhập)
-(Đơn nhập) --> (Thanh toán) : <<include>>
-(Thanh toán) --> (Hóa đơn) :<<include>>
-(Hóa đơn) -->(Danh sách sản phẩm):<<include>>
-
-
-(Hóa đơn) --> (Báo cáo) : <<include>>
+(Thanh toán) --> (Hóa đơn)
 HTTT --> (Hóa đơn)
 NCC --> (Hóa đơn)
 
+(Hóa đơn) --> (Báo cáo) : <<include>>
+(Báo cáo) --> (Danh sách sản phẩm) : <<include>>
+
 @enduml
+
   `;
 
   const encodedUML = plantumlEncoder.encode(umlCode);

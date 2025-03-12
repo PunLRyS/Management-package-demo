@@ -28,11 +28,13 @@ NV --> (Hóa đơn)
 
 (Nhập hàng) --> (Thêm sản phẩm) : <<include>>
 (Thêm sản phẩm) --> (Danh sách sản phẩm) : <<include>>
-(Nhập hàng) --> (Chọn nhà cung cấp) : <<include>>
+(Nhập hàng) --> (Danh sách nhà cung cấp) 
 
 
-(Chọn nhà cung cấp) --> (Đơn nhập) : <<include>>
-
+(Danh sách nhà cung cấp) --> (Chọn nhà cung cấp) 
+(Danh sách nhà cung cấp) --> (Thêm nhà cung cấp)
+(Thêm nhà cung cấp)--> (Chọn nhà cung cấp)
+(Chọn nhà cung cấp) --> (Đơn nhập)
 (Đơn nhập) --> (Thanh toán) : <<include>>
 (Thanh toán) --> (Hóa đơn) :<<include>>
 (Hóa đơn) -->(Danh sách sản phẩm):<<include>>
@@ -43,6 +45,7 @@ HTTT --> (Hóa đơn)
 NCC --> (Hóa đơn)
 
 @enduml
+
 
   `;
 
@@ -99,7 +102,7 @@ NCC --> (Hóa đơn)
             <motion.div
               variants={animationVariants}
               className="p-4 rounded-md shadow-md mt-4 flex justify-center overflow-hidden"
-              style={{ maxHeight: '100vh' }}
+              style={{ maxHeight: '130vh' }}
             >
               <img src={umlImageUrl} alt="UML Diagram" className="max-w-full h-auto" />
             </motion.div>
